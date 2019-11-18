@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- This file was auto-generated from WSDL --><!-- by the Apache Axis2 version: 1.6.2  Built on : Apr 17, 2012 (05:33:49 IST) --><serviceGroup>
+    <service name="RoomsService">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.hotel.rooms.RoomsServiceMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">service.com.hotel.rooms.RoomsServiceImpl</parameter>
+
+        <parameter name="ServiceObjectSupplier">org.apache.axis2.extensions.spring.receivers.SpringAppContextAwareObjectSupplier</parameter>
+        <parameter name="SpringBeanName">roomsServiceImpl</parameter>
+        <parameter name="SpringContextLocation">context.xml</parameter>
+
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="RoomsOperation" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://hotel.com/rooms/service">
+            <actionMapping>http://hotel.com/RoomsOperation</actionMapping>
+            <outputActionMapping>http://hotel.com/rooms/service/NewPortType/RoomsOperationResponse</outputActionMapping>
+        </operation>
+    </service>
+
+    <service name="springInit" class="service.com.hotel.rooms.SpringInit">
+        <description>Este servicio inicializa el contexto de Spring</description>
+        <parameter name="serviceTCCL">composite</parameter>
+        <parameter name="ServiceClass">service.com.hotel.rooms.SpringInit</parameter>
+        <parameter name="load-on-startup">true</parameter>
+        <operation name="springInit">
+            <messageReceiver class="org.apache.axis2.receivers.RawXMLINOutMessageReceiver"/>
+        </operation>
+    </service>
+</serviceGroup>

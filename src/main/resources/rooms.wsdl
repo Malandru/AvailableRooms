@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      targetNamespace="http://hotel.com/rooms/service"
+      xmlns:tns="http://hotel.com/rooms/service"
+      xmlns:hotel="http://hotel.com/rooms">
+
+    <wsdl:types>
+        <xs:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://hotel.com/rooms">
+
+            <xs:element name="request">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="checkin" type="xs:date"/>
+                        <xs:element name="checkout" type="xs:date"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="response">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="cuarto" type="hotel:room"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:complexType name="room">
+                <xs:sequence>
+                    <xs:element name="numeroCuarto" type="xs:int"/>
+                    <xs:element name="tipoCuarto" type="xs:string"/>
+                    <xs:element name="precioNoche" type="xs:double"/>
+                    <xs:element name="nombre" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+        </xs:schema>
+    </wsdl:types>
+
+    <wsdl:message name="RoomsMessageRequest">
+        <wsdl:part name="parameter" element="hotel:request" />
+    </wsdl:message>
+
+    <wsdl:message name="RoomsMessageResponse">
+        <wsdl:part name="parameter" element="hotel:response" />
+    </wsdl:message>
+
+    <wsdl:portType name="NewPortType">
+        <wsdl:operation name="RoomsOperation">
+            <wsdl:input message="tns:RoomsMessageRequest" />
+            <wsdl:output message="tns:RoomsMessageResponse" />
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="RoomsBinding" type="tns:NewPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="RoomsOperation">
+            <soap:operation soapAction="http://hotel.com/RoomsOperation" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="RoomsService">
+        <wsdl:port name="NewPort" binding="tns:RoomsBinding">
+            <soap:address location="http://localhost:8080/axis2/services/RoomsService" />
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>
